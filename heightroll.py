@@ -4,6 +4,11 @@ import math
 BASE_HEIGHT = 70
 MAX_HEIGHT = 87
 
+POS = ['pg','sg','sf','pf','c']
+POS_ODDS = [1,1,1,1,1]
+ARCH = ['tiny','athletic','skilled','giant']
+ARCH_ODDS = [1,1,1,1]
+
 BASE_TINY = [0,1,2,3]
 BASE_REG = [3,4,5,6]
 BASE_GIANT = [7,8,9,10]
@@ -21,6 +26,18 @@ GIANTC_ODDS = [45,40,15]
 
 def calc_height(pos, arch):
     height = -1
+    rand_pos = ""
+    rand_arch = ""
+
+    if (pos == "random"):
+        pos = str(random.choices(POS, weights=POS_ODDS, k=1)[0])
+        rand_pos = "Random:"
+
+
+    if (arch == "random"):
+        arch = str(random.choices(ARCH, weights=ARCH_ODDS, k=1)[0])
+        rand_arch = "Random:"
+
     # role base value based on archetype
     if (arch == "tiny"):
         height = random.choices(BASE_TINY, weights=TINY_ODDS, k=1)
@@ -46,5 +63,5 @@ def calc_height(pos, arch):
 
     #prepare final inch amount, then height
     final = BASE_HEIGHT + height[0]
-    result = arch.capitalize() + " " + pos.upper() + " " + str(math.floor(final / 12)) + "\'" + str(final % 12)
+    result = rand_arch + arch.capitalize() + " " + rand_pos + pos.upper() + " - " + str(math.floor(final / 12)) + "\'" + str(final % 12)
     return result

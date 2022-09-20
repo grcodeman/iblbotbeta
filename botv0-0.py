@@ -32,6 +32,7 @@ tree = app_commands.CommandTree(client)
     app_commands.Choice(name="Skilled", value="skilled"),
     app_commands.Choice(name="Athletic", value="athletic"),
     app_commands.Choice(name="Giant", value="giant"),
+    app_commands.Choice(name="Random", value="random"),
     ], 
     position = [
     app_commands.Choice(name="PG", value="pg"),
@@ -39,6 +40,7 @@ tree = app_commands.CommandTree(client)
     app_commands.Choice(name="SF", value="sf"),
     app_commands.Choice(name="PF", value="pf"),
     app_commands.Choice(name="C", value="c"),
+    app_commands.Choice(name="Random", value="random"),
     ])
 async def roll(interaction: discord.Interaction, archetype: app_commands.Choice[str], position: app_commands.Choice[str]):
     await interaction.response.defer()
