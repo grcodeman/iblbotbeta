@@ -57,6 +57,7 @@ async def roll(interaction: discord.Interaction, archetype: app_commands.Choice[
     app_commands.Choice(name="7", value="7"),
     app_commands.Choice(name="8", value="8"),
     app_commands.Choice(name="9", value="9"),
+    app_commands.Choice(name="10", value="10"),
     ])
 async def stats(interaction: discord.Interaction, season: app_commands.Choice[str], player: str):
     await interaction.response.defer()
