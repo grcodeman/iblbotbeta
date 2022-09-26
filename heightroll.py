@@ -33,12 +33,11 @@ def calc_height(pos, arch):
         pos = str(random.choices(POS, weights=POS_ODDS, k=1)[0])
         rand_pos = "Random:"
 
-
     if (arch == "random"):
         arch = str(random.choices(ARCH, weights=ARCH_ODDS, k=1)[0])
         rand_arch = "Random:"
 
-    # role base value based on archetype
+    # roll base value based on archetype
     if (arch == "tiny"):
         height = random.choices(BASE_TINY, weights=TINY_ODDS, k=1)
     elif (arch == "skilled" or arch == "athletic"):
@@ -61,7 +60,7 @@ def calc_height(pos, arch):
     elif (pos == "c"):
         height[0] = height[0] + C_INC
 
-    #prepare final inch amount, then height
+    # prepare final inch amount, then height
     final = BASE_HEIGHT + height[0]
     result = rand_arch + arch.capitalize() + " " + rand_pos + pos.upper() + " - " + str(math.floor(final / 12)) + "\'" + str(final % 12)
     return result

@@ -6,6 +6,7 @@ from viewstats import grab_stats
 from viewbank import grab_teamac
 from viewbank import grab_teambal
 from viewbank import grab_bal
+from viewbank import grab_claims
 
 guild = 1004183670086713445
 general = 1004183672720720016
@@ -143,5 +144,25 @@ async def viewbal(interaction: discord.Interaction, team: app_commands.Choice[st
 async def self(interaction: discord.Interaction, player: str):
     await interaction.response.defer()
     await interaction.followup.send(grab_bal(player))
+
+# viewclaims command
+@tree.command(name="viewclaims", description="View a player's claims for a period", guild=discord.Object(id=guild))
+@app_commands.choices(week=[
+    app_commands.Choice(name="Week 1", value="Week 1"),
+    app_commands.Choice(name="Week 2", value="Week 2"),
+    app_commands.Choice(name="Week 3", value="Week 3"),
+    app_commands.Choice(name="Week 4", value="Week 4"),
+    app_commands.Choice(name="Week 5", value="Week 5"),
+    app_commands.Choice(name="Week 6", value="Week 6"),
+    app_commands.Choice(name="Pre Season", value="Pre Season"),
+    app_commands.Choice(name="All Star Break", value="All Star Break"),
+    app_commands.Choice(name="Post Season", value="Post Season"),
+    ])
+async def viewac(interaction: discord.Interaction, week: app_commands.Choice[str], player: str):
+    await interaction.response.defer()
+    if (interaction.channel_id == general):
+        await interaction.followup.send("Go to <#" + str(botcommands) + ">")
+    else:
+        await interaction.followup.send(grab_claims(week.value, player))
 
 client.run('MTAwNDE3ODMzOTU4NzcwMjgyNQ.GhXiJZ.gbWQp_wtpIxVHr9gtQcbpi6IIKpJIZSobwpYbc')
