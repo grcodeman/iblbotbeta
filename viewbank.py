@@ -45,7 +45,7 @@ def grab_bal(player):
     return string
 
 def grab_claims(week, player):
-    ws = sh.worksheet('XP Claims')
+    ws = sh.worksheet('Claim View')
     string = ""
 
     c = ws.findall(player + "-" + week)
@@ -67,5 +67,3 @@ def grab_claims(week, player):
         string += "\n"
 
     return string
-
-print(grab_claims("Week 2", "M. Fairway"))

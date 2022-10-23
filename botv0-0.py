@@ -1,5 +1,11 @@
+from pickle import TRUE
 import discord, asyncio
 from discord import app_commands
+
+from ibltoken import get_token
+from ibltoken import get_guild
+from ibltoken import get_general
+from ibltoken import get_botcommands
 
 from heightroll import calc_height
 from viewstats import grab_stats
@@ -8,9 +14,9 @@ from viewbank import grab_teambal
 from viewbank import grab_bal
 from viewbank import grab_claims
 
-guild = 1004183670086713445
-general = 1004183672720720016
-botcommands = 1017795880553824359
+guild = get_guild()
+general = get_general()
+botcommands = get_botcommands()
 
 class aclient(discord.Client):
     def __init__(self):
@@ -158,11 +164,11 @@ async def self(interaction: discord.Interaction, player: str):
     app_commands.Choice(name="All Star Break", value="All Star Break"),
     app_commands.Choice(name="Post Season", value="Post Season"),
     ])
-async def viewac(interaction: discord.Interaction, week: app_commands.Choice[str], player: str):
+async def viewclaims(interaction: discord.Interaction, week: app_commands.Choice[str], player: str):
     await interaction.response.defer()
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
         await interaction.followup.send(grab_claims(week.value, player))
 
-client.run('MTAwNDE3ODMzOTU4NzcwMjgyNQ.GhXiJZ.gbWQp_wtpIxVHr9gtQcbpi6IIKpJIZSobwpYbc')
+client.run(get_token())
