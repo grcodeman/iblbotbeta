@@ -13,6 +13,7 @@ from viewbank import grab_teamac
 from viewbank import grab_teambal
 from viewbank import grab_bal
 from viewbank import grab_claims
+from submitform import submit_ac
 
 guild = get_guild()
 general = get_general()
@@ -170,5 +171,11 @@ async def viewclaims(interaction: discord.Interaction, week: app_commands.Choice
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
         await interaction.followup.send(grab_claims(week.value, player))
+
+# ac command
+@tree.command(name="ac", description="Submit an Activity Check (Weekly Checkin)", guild=discord.Object(id=guild))
+async def self(interaction: discord.Interaction, player: str):
+    await interaction.response.defer()
+    await interaction.followup.send(submit_ac((interaction.user.name + "#" + interaction.user.discriminator),player))
 
 client.run(get_token())
