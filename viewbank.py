@@ -47,6 +47,9 @@ def grab_bal(player):
 def grab_claims(week, player):
     ws = sh.worksheet('Claim View')
     string = ""
+    amt_approved = 0
+    amt_denied = 0
+    amt_pending = 0
 
     c = ws.findall(player + "-" + week)
     string += "__**" + player + " " + week + " claims**__" + "\n"
@@ -59,11 +62,16 @@ def grab_claims(week, player):
         string += "\n"
         status = str(ws.cell(i.row, 7).value)
         if (status == "Yes"):
-            string += amount + "XP **Approved** by " + str(ws.cell(i.row, 8).value)
+            string += "🟢 " + amount + "XP **Approved** by " + str(ws.cell(i.row, 8).value)
+            amt_approved += int(amount)
         elif (status == "No"):
-            string += amount + "XP **Denied** by " + str(ws.cell(i.row, 8).value) + " Reason: " + str(ws.cell(i.row, 9).value)
+            string += "🔴 " + amount + "XP **Denied** by " + str(ws.cell(i.row, 8).value) + " Reason: " + str(ws.cell(i.row, 9).value)
+            amt_denied += int(amount)
         else:
-            string += amount + "XP **Pending**"
+            string += "🟡 " + amount + "XP **Pending**"
+            amt_pending += int(amount)
         string += "\n"
+    
+    string += "**Summary:**\n" + "🟢 " + str(amt_approved) + "XP 🔴" + str(amt_denied) + "XP 🟡" + str(amt_pending) + "XP"
 
     return string
