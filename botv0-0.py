@@ -14,6 +14,8 @@ from viewbank import grab_teambal
 from viewbank import grab_bal
 from viewbank import grab_claims
 from submitform import submit_ac
+from ibldb import add_name
+from ibldb import get_name
 
 guild = get_guild()
 general = get_general()
@@ -69,11 +71,13 @@ async def roll(interaction: discord.Interaction, archetype: app_commands.Choice[
     app_commands.Choice(name="9", value="9"),
     app_commands.Choice(name="10", value="10"),
     ])
-async def stats(interaction: discord.Interaction, season: app_commands.Choice[str], player: str):
+async def stats(interaction: discord.Interaction, season: app_commands.Choice[str], player: str=None):
     await interaction.response.defer()
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
+        if (player == None):
+            player = get_name(interaction.user.id)
         await interaction.followup.send(grab_stats(season.value,player))
 
 # teamac command
@@ -148,8 +152,10 @@ async def viewbal(interaction: discord.Interaction, team: app_commands.Choice[st
 
 # bal command
 @tree.command(name="bal", description="View a player's XP balance", guild=discord.Object(id=guild))
-async def self(interaction: discord.Interaction, player: str):
+async def self(interaction: discord.Interaction, player: str=None):
     await interaction.response.defer()
+    if (player == None):
+        player = get_name(interaction.user.id)
     await interaction.followup.send(grab_bal(player))
 
 # viewclaims command
@@ -165,17 +171,28 @@ async def self(interaction: discord.Interaction, player: str):
     app_commands.Choice(name="All Star Break", value="All Star Break"),
     app_commands.Choice(name="Post Season", value="Post Season"),
     ])
-async def viewclaims(interaction: discord.Interaction, week: app_commands.Choice[str], player: str):
+async def viewclaims(interaction: discord.Interaction, week: app_commands.Choice[str], player: str=None):
     await interaction.response.defer()
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
+        if (player == None):
+            player = get_name(interaction.user.id)
         await interaction.followup.send(grab_claims(week.value, player))
 
 # ac command
 @tree.command(name="ac", description="Submit an Activity Check (Weekly Checkin)", guild=discord.Object(id=guild))
+async def self(interaction: discord.Interaction, player: str=None):
+    await interaction.response.defer()
+    if (player == None):
+        player = get_name(interaction.user.id)
+    await interaction.followup.send(submit_ac((interaction.user.name + "#" + interaction.user.discriminator),player))
+
+# link command
+@tree.command(name="link", description="Link your player's name to your account", guild=discord.Object(id=guild))
 async def self(interaction: discord.Interaction, player: str):
     await interaction.response.defer()
-    await interaction.followup.send(submit_ac((interaction.user.name + "#" + interaction.user.discriminator),player))
+    add_name(interaction.user.id,player)
+    await interaction.followup.send("Linked name to `" + player + "`")
 
 client.run(get_token())
