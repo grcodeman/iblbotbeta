@@ -8,6 +8,7 @@ from ibltoken import get_general
 from ibltoken import get_botcommands
 
 from heightroll import calc_height
+from jsroll import roll_js
 from viewstats import grab_stats
 from viewbank import grab_teamac
 from viewbank import grab_teambal
@@ -54,8 +55,21 @@ tree = app_commands.CommandTree(client)
     ])
 async def roll(interaction: discord.Interaction, archetype: app_commands.Choice[str], position: app_commands.Choice[str]):
     await interaction.response.defer()
-    await asyncio.sleep(2)
+    await asyncio.sleep(1)
     await interaction.followup.send(calc_height(position.value,archetype.value))
+
+# jumpshot command
+@tree.command(name="jumpshot", description="Roll a jumpshot (Required for Giant and Athletic)", guild=discord.Object(id=guild))
+@app_commands.choices(type=[
+    app_commands.Choice(name="5'10-6'4", value="guard"),
+    app_commands.Choice(name="6'5-6'10", value="wing"),
+    app_commands.Choice(name="6'11-7'3", value="big"),
+    ])
+async def roll(interaction: discord.Interaction, type: app_commands.Choice[str]):
+    await interaction.response.defer()
+    await asyncio.sleep(1)
+    rolled = roll_js(type.value)
+    await interaction.followup.send("`" + (interaction.user.name + "#" + interaction.user.discriminator) + "` rolled a " + type.name + " Jumpshot: **" + rolled + "**")
 
 # stats command
 @tree.command(name="stats", description="View a players stat line", guild=discord.Object(id=guild))
