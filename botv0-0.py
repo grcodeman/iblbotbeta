@@ -62,8 +62,8 @@ async def roll(interaction: discord.Interaction, archetype: app_commands.Choice[
 @tree.command(name="jumpshot", description="Roll a jumpshot (Required for Giant and Athletic)", guild=discord.Object(id=guild))
 @app_commands.choices(type=[
     app_commands.Choice(name="5'10-6'4", value="guard"),
-    app_commands.Choice(name="6'5-6'10", value="wing"),
-    app_commands.Choice(name="6'11-7'3", value="big"),
+    app_commands.Choice(name="6'5-6'9", value="wing"),
+    app_commands.Choice(name="6'10-7'3", value="big"),
     ])
 async def roll(interaction: discord.Interaction, type: app_commands.Choice[str]):
     await interaction.response.defer()
