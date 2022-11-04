@@ -10,6 +10,7 @@ from ibltoken import get_botcommands
 from heightroll import calc_height
 from jsroll import roll_js
 from viewstats import grab_stats
+from viewstats import cached_stats
 from viewbank import grab_teamac
 from viewbank import grab_teambal
 from viewbank import grab_bal
@@ -21,6 +22,8 @@ from ibldb import get_name
 guild = get_guild()
 general = get_general()
 botcommands = get_botcommands()
+
+default_season = 10
 
 class aclient(discord.Client):
     def __init__(self):
@@ -73,7 +76,11 @@ async def roll(interaction: discord.Interaction, type: app_commands.Choice[str])
 
 # stats command
 @tree.command(name="stats", description="View a players stat line", guild=discord.Object(id=guild))
-@app_commands.choices(season=[
+@app_commands.choices(type=[
+    app_commands.Choice(name="Cached (Recommended)", value="cached"),
+    app_commands.Choice(name="Live", value="live"),
+    ],
+    season=[
     app_commands.Choice(name="1", value="1"),
     app_commands.Choice(name="2", value="2"),
     app_commands.Choice(name="3", value="3"),
@@ -85,14 +92,25 @@ async def roll(interaction: discord.Interaction, type: app_commands.Choice[str])
     app_commands.Choice(name="9", value="9"),
     app_commands.Choice(name="10", value="10"),
     ])
-async def stats(interaction: discord.Interaction, season: app_commands.Choice[str], player: str=None):
+async def stats(interaction: discord.Interaction, type: app_commands.Choice[str], season: app_commands.Choice[str]=None, player: str=None):
     await interaction.response.defer()
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
         if (player == None):
             player = get_name(interaction.user.id)
-        await interaction.followup.send(grab_stats(season.value,player))
+
+        if (season == None):
+            season = default_season
+        else:
+            season = season.value
+
+        if (type.value == "live"):
+            await interaction.followup.send(grab_stats(season,player))
+        elif (type.value == "cached"):
+            await interaction.followup.send(cached_stats(season,player))
+        else:
+            await interaction.followup.send("Process Failed")
 
 # teamac command
 @tree.command(name="teamac", description="View a team's AC status", guild=discord.Object(id=guild))
