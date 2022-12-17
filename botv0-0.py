@@ -33,15 +33,17 @@ class aclient(discord.Client):
 
     async def on_ready(self):
         if not self.synced:
-            await tree.sync(guild = discord.Object(id = guild))
+            await tree.sync()
             self.synced = True
         print(f"We have logged in as {self.user}.")
 
 client = aclient()
 tree = app_commands.CommandTree(client)
 
+# To restrict to main server use as a command argument: , guild=discord.Object(id=guild)
+
 # roll command
-@tree.command(name="roll", description="Roll a height using the IBL odds", guild=discord.Object(id=guild))
+@tree.command(name="roll", description="Roll a height using the IBL odds")
 @app_commands.choices(archetype=[
     app_commands.Choice(name="Tiny", value="tiny"),
     app_commands.Choice(name="Skilled", value="skilled"),
@@ -63,7 +65,7 @@ async def roll(interaction: discord.Interaction, archetype: app_commands.Choice[
     await interaction.followup.send(calc_height(position.value,archetype.value))
 
 # jumpshot command
-@tree.command(name="jumpshot", description="Roll a jumpshot (Required for Giant and Athletic)", guild=discord.Object(id=guild))
+@tree.command(name="jumpshot", description="Roll a jumpshot (Required for Giant and Athletic)")
 @app_commands.choices(type=[
     app_commands.Choice(name="5'10-6'4", value="guard"),
     app_commands.Choice(name="6'5-6'9", value="wing"),
@@ -76,7 +78,7 @@ async def roll(interaction: discord.Interaction, type: app_commands.Choice[str])
     await interaction.followup.send("`" + (interaction.user.name + "#" + interaction.user.discriminator) + "` rolled a " + type.name + " Jumpshot: **" + rolled + "**")
 
 # stats command
-@tree.command(name="stats", description="View a players stat line", guild=discord.Object(id=guild))
+@tree.command(name="stats", description="View a players stat line")
 @app_commands.choices(type=[
     app_commands.Choice(name="Cached (Recommended)", value="cached"),
     app_commands.Choice(name="Live", value="live"),
@@ -115,7 +117,7 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
             await interaction.followup.send("Process Failed")
 
 # teamac command
-@tree.command(name="teamac", description="View a team's AC status", guild=discord.Object(id=guild))
+@tree.command(name="teamac", description="View a team's AC status")
 @app_commands.choices(team=[
     app_commands.Choice(name="76ers", value="76ers"),
     app_commands.Choice(name="Raptors", value="Raptors"),
@@ -150,7 +152,7 @@ async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str
         await interaction.followup.send(grab_teamac(team.value))
 
 # teambal command
-@tree.command(name="teambal", description="View a team's XP balance", guild=discord.Object(id=guild))
+@tree.command(name="teambal", description="View a team's XP balance")
 @app_commands.choices(team=[
     app_commands.Choice(name="76ers", value="76ers"),
     app_commands.Choice(name="Raptors", value="Raptors"),
@@ -185,7 +187,7 @@ async def viewbal(interaction: discord.Interaction, team: app_commands.Choice[st
         await interaction.followup.send(grab_teambal(team.value))
 
 # bal command
-@tree.command(name="bal", description="View a player's XP balance", guild=discord.Object(id=guild))
+@tree.command(name="bal", description="View a player's XP balance")
 async def self(interaction: discord.Interaction, player: str=None):
     await interaction.response.defer()
     if (player == None):
@@ -193,7 +195,7 @@ async def self(interaction: discord.Interaction, player: str=None):
     await interaction.followup.send(grab_bal(player))
 
 # viewclaims command
-@tree.command(name="viewclaims", description="View a player's claims for a period", guild=discord.Object(id=guild))
+@tree.command(name="viewclaims", description="View a player's claims for a period")
 @app_commands.choices(week=[
     app_commands.Choice(name="Week 1", value="Week 1"),
     app_commands.Choice(name="Week 2", value="Week 2"),
@@ -226,7 +228,7 @@ async def self(interaction: discord.Interaction, player: str=None):
         await interaction.followup.send("Use `/link` or enter in a name to use")
 
 # link command
-@tree.command(name="link", description="Link your player's name to your account", guild=discord.Object(id=guild))
+@tree.command(name="link", description="Link your player's name to your account")
 async def self(interaction: discord.Interaction, player: str):
     await interaction.response.defer()
     add_name(interaction.user.id,player)
