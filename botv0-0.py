@@ -23,7 +23,7 @@ guild = get_guild()
 general = get_general()
 botcommands = get_botcommands()
 
-default_season = 10
+default_season = 11
 
 class aclient(discord.Client):
     def __init__(self):
@@ -91,7 +91,7 @@ async def roll(interaction: discord.Interaction, type: app_commands.Choice[str])
     app_commands.Choice(name="8", value="8"),
     app_commands.Choice(name="9", value="9"),
     app_commands.Choice(name="10", value="10"),
-    app_commands.Choice(name="10", value="11"),
+    app_commands.Choice(name="11", value="11"),
     ])
 async def stats(interaction: discord.Interaction, type: app_commands.Choice[str], season: app_commands.Choice[str]=None, player: str=None):
     await interaction.response.defer()
