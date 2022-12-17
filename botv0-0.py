@@ -16,6 +16,7 @@ from viewbank import grab_teambal
 from viewbank import grab_bal
 from viewbank import grab_claims
 from submitform import submit_ac
+from submitform import submit_claim
 from ibldb import add_name
 from ibldb import get_name
 
@@ -219,7 +220,10 @@ async def self(interaction: discord.Interaction, player: str=None):
     await interaction.response.defer()
     if (player == None):
         player = get_name(interaction.user.id)
-    await interaction.followup.send(submit_ac((interaction.user.name + "#" + interaction.user.discriminator),player))
+    if (player != "Error"):
+        await interaction.followup.send(submit_ac((interaction.user.name + "#" + interaction.user.discriminator),player))
+    else:
+        await interaction.followup.send("Use `/link` or enter in a name to use")
 
 # link command
 @tree.command(name="link", description="Link your player's name to your account", guild=discord.Object(id=guild))
@@ -227,5 +231,47 @@ async def self(interaction: discord.Interaction, player: str):
     await interaction.response.defer()
     add_name(interaction.user.id,player)
     await interaction.followup.send("Linked name to `" + player + "`")
+
+# claim command
+@tree.command(name="claim", description="Submit a claim request", guild=discord.Object(id=guild))
+@app_commands.choices(week=[
+    app_commands.Choice(name="Week 1", value="Week 1"),
+    app_commands.Choice(name="Week 2", value="Week 2"),
+    app_commands.Choice(name="Week 3", value="Week 3"),
+    app_commands.Choice(name="Week 4", value="Week 4"),
+    app_commands.Choice(name="Week 5", value="Week 5"),
+    app_commands.Choice(name="Week 6", value="Week 6"),
+    app_commands.Choice(name="Pre Season", value="Pre Season"),
+    app_commands.Choice(name="All Star Break", value="All Star Break"),
+    app_commands.Choice(name="Post Season", value="Post Season"),
+    ],
+    category=[
+        app_commands.Choice(name="Job Leader Pay", value="Job Leader Pay"),
+        app_commands.Choice(name="Job: Assets", value="Job: Assets"),
+        app_commands.Choice(name="Job: Athletic", value="Job: Athletic"),
+        app_commands.Choice(name="Job: Auditor", value="Job: Auditor"),
+        app_commands.Choice(name="Job: Editor Come Up", value="Job: Editor Come Up"),
+        app_commands.Choice(name="Job: Editor IBL", value="Job: Editor IBL"),
+        app_commands.Choice(name="Job: ESPN", value="Job: ESPN"),
+        app_commands.Choice(name="Job: First Take", value="Job: First Take"),
+        app_commands.Choice(name="Job: League Historian", value="Job: League Historian"),
+        app_commands.Choice(name="Job: Master Roster", value="Job: Master Roster"),
+        app_commands.Choice(name="Job: Stats", value="Job: Stats"),
+        app_commands.Choice(name="Job: Streamer Come Up", value="Job: Streamer Come Up"),
+        app_commands.Choice(name="Job: Streamer IBL", value="Job: Streamer IBL"),
+        app_commands.Choice(name="Job: Sheets", value="Job: Sheets"),
+        app_commands.Choice(name="XP Spent", value="XP Spent"),
+        app_commands.Choice(name="Misc.", value="Misc."),
+        app_commands.Choice(name="Refunds", value="Refunds"),
+    ]
+    )
+async def claim(interaction: discord.Interaction, week: app_commands.Choice[str], category: app_commands.Choice[str], amt: str, desc: str, player: str=None):
+    await interaction.response.defer()
+    if (player == None):
+        player = get_name(interaction.user.id)
+    if (player != "Error"):
+        await interaction.followup.send(submit_claim(player, week.value, category.value, amt, desc))
+    else:
+        await interaction.followup.send("Use `/link` or enter in a name to use")
 
 client.run(get_token())
