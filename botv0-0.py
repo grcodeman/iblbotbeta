@@ -19,12 +19,20 @@ from submitform import submit_ac
 from submitform import submit_claim
 from ibldb import add_name
 from ibldb import get_name
+from viewmr import grab_mr
+from viewmr import find_row
 
 guild = get_guild()
 general = get_general()
 botcommands = get_botcommands()
 
+# for stats
 default_season = 11
+
+# for mr viewing
+info_start = 2
+overview_start = 19
+att_start = 32
 
 class aclient(discord.Client):
     def __init__(self):
@@ -273,6 +281,83 @@ async def claim(interaction: discord.Interaction, week: app_commands.Choice[str]
         player = get_name(interaction.user.id)
     if (player != "Error"):
         await interaction.followup.send(submit_claim(player, week.value, category.value, amt, desc))
+    else:
+        await interaction.followup.send("Use `/link` or enter in a name to use")
+
+# viewmr command
+@tree.command(name="viewmr", description="Grab a value from the Master Roster such as badge level, player info, etc")
+@app_commands.choices(info=[
+    app_commands.Choice(name="Team", value=str(info_start+0)),
+    app_commands.Choice(name="Nat. Pos.", value=str(info_start+1)),
+    app_commands.Choice(name="Sec. Pos.", value=str(info_start+2)),
+    app_commands.Choice(name="Height", value=str(info_start+3)),
+    app_commands.Choice(name="Weight", value=str(info_start+4)),
+    app_commands.Choice(name="IBL Archetype", value=str(info_start+5)),
+    app_commands.Choice(name="In Game Archetype", value=str(info_start+6)),
+    app_commands.Choice(name="Loyalty Years", value=str(info_start+7)),
+    app_commands.Choice(name="Contract", value=str(info_start+8)),
+    app_commands.Choice(name="Cap Hit", value=str(info_start+9)),
+    app_commands.Choice(name="Years", value=str(info_start+10)),
+    app_commands.Choice(name="Options", value=str(info_start+11)),
+    app_commands.Choice(name="Drafted", value=str(info_start+12)),
+    app_commands.Choice(name="Affiliation (Stashed)", value=str(info_start+13)),
+    app_commands.Choice(name="Homegrown", value=str(info_start+14)),
+    app_commands.Choice(name="Season Joined", value=str(info_start+15)),
+    app_commands.Choice(name="Regression Season", value=str(info_start+16)),
+    ],
+    overview=[
+        app_commands.Choice(name="Comparison", value=str(overview_start+0)),
+        app_commands.Choice(name="Total Badges", value=str(overview_start+1)),
+        app_commands.Choice(name="Hall of Fame", value=str(overview_start+2)),
+        app_commands.Choice(name="Gold", value=str(overview_start+3)),
+        app_commands.Choice(name="Silver", value=str(overview_start+4)),
+        app_commands.Choice(name="Bronze", value=str(overview_start+5)),
+        app_commands.Choice(name="Hot Zones", value=str(overview_start+6)),
+        app_commands.Choice(name="Inside Scoring", value=str(overview_start+7)),
+        app_commands.Choice(name="Outside Scoring", value=str(overview_start+8)),
+        app_commands.Choice(name="Playmaking", value=str(overview_start+9)),
+        app_commands.Choice(name="Athleticism", value=str(overview_start+10)),
+        app_commands.Choice(name="Defending", value=str(overview_start+11)),
+        app_commands.Choice(name="Rebounding", value=str(overview_start+12)),
+    ],
+    att_off=[
+        app_commands.Choice(name="Driving Layup", value=str(att_start+0)),
+        app_commands.Choice(name="Post Fade", value=str(att_start+1)),
+        app_commands.Choice(name="Post Hook", value=str(att_start+2)),
+        app_commands.Choice(name="Post Moves", value=str(att_start+3)),
+        app_commands.Choice(name="Draw Foul", value=str(att_start+4)),
+        app_commands.Choice(name="Close Shot", value=str(att_start+5)),
+        app_commands.Choice(name="Mid-Range Shot", value=str(att_start+6)),
+        app_commands.Choice(name="Three-Point Shot", value=str(att_start+7)),
+        app_commands.Choice(name="Free Throw", value=str(att_start+8)),
+        app_commands.Choice(name="Ball Control", value=str(att_start+9)),
+        app_commands.Choice(name="Pass IQ", value=str(att_start+10)),
+        app_commands.Choice(name="Pass Accuracy", value=str(att_start+11)),
+        app_commands.Choice(name="Offensive Rebound", value=str(att_start+12)),
+        app_commands.Choice(name="Standing Dunk", value=str(att_start+13)),
+        app_commands.Choice(name="Driving Dunk", value=str(att_start+14)),
+        app_commands.Choice(name="Shot IQ", value=str(att_start+15)),
+        app_commands.Choice(name="Pass Vision", value=str(att_start+16)),
+        app_commands.Choice(name="Hands", value=str(att_start+17)),
+    ]
+    )
+async def viewmr(interaction: discord.Interaction, manual: str=None, player: str=None, info: app_commands.Choice[str]=None, overview: app_commands.Choice[str]=None, att_off: app_commands.Choice[str]=None):
+    await interaction.response.defer()
+    if (player == None):
+        player = get_name(interaction.user.id)
+    if (player != "Error"):
+        num = "1"
+        if (manual != None):
+            num = find_row(manual)
+        elif (info != None):
+            num = info.value
+        elif (overview != None):
+            num = overview.value
+        elif (att_off != None):
+            num = att_off.value
+        
+
+        await interaction.followup.send(grab_mr(player, num))
     else:
         await interaction.followup.send("Use `/link` or enter in a name to use")
 
