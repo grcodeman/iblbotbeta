@@ -2,7 +2,7 @@ import gspread
 
 gc = gspread.service_account(filename="sheets-test-343522-8a764f8b82da.json")
 
-sh = gc.open_by_key("1L9FGQs9Hv59XGVvewKRRo-7MalPo_QUr5-Tl2eghw9Q")
+sh = gc.open_by_key("1kMjNXd9vgc4BybQYhByucby4TIi6_QuWXMZ951ms3f0")
 
 def grab_teamac(team):
     ws = sh.worksheet('Bank')
