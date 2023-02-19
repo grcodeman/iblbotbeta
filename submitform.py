@@ -1,7 +1,7 @@
 import requests
 
 ac_url = 'https://docs.google.com/forms/d/e/1FAIpQLSfQlPPjtoBi5KCJXV4dXJZZ6N4A-l94ObfTNKvYXHdxVMBAZg/formResponse'
-claim_url = 'https://docs.google.com/forms/d/e/1FAIpQLScoMSAcy8C3UEz5A5XxQuh2wJgSdTt3v3YOgSz0ri1w4S7Mbg/formResponse'
+claim_url = 'https://docs.google.com/forms/d/1nvbk8ha-h4uca9r54PSyz9_76Ygtc_cRfcY7vQYv8Z4/formResponse'
 
 def submit_ac (user, player):
     try:
@@ -27,7 +27,7 @@ def submit_claim (player, week, category, amount, desc):
             'entry.908077022':str(desc),
             'draftResponse':[],
             'pageHistory':0}
-        user_agent = {'Referer':'https://docs.google.com/forms/d/e/1FAIpQLScoMSAcy8C3UEz5A5XxQuh2wJgSdTt3v3YOgSz0ri1w4S7Mbg/viewform','User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
+        user_agent = {'Referer':'https://docs.google.com/forms/d/1nvbk8ha-h4uca9r54PSyz9_76Ygtc_cRfcY7vQYv8Z4/viewform','User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
         r = requests.post(claim_url, data=form_data, headers=user_agent)
         if str(r.status_code) == '200':
             return "Claim Submitted: `" + str(player) + "` `" + str(week) + "` `" + str(category) + "` `" + str(amount) + "XP" + "` `" + str(desc) + "`"
