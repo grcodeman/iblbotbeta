@@ -225,7 +225,7 @@ async def viewclaims(interaction: discord.Interaction, week: app_commands.Choice
         await interaction.followup.send(grab_claims(week.value, player))
 
 # ac command
-@tree.command(name="ac", description="Submit an Activity Check (Weekly Checkin)", guild=discord.Object(id=guild))
+@tree.command(name="ac", description="Submit an Activity Check (Weekly Checkin)")
 async def self(interaction: discord.Interaction, player: str=None):
     await interaction.response.defer()
     if (player == None):
@@ -243,7 +243,7 @@ async def self(interaction: discord.Interaction, player: str):
     await interaction.followup.send("Linked name to `" + player + "`")
 
 # claim command
-@tree.command(name="claim", description="Submit a claim request", guild=discord.Object(id=guild))
+@tree.command(name="claim", description="Submit a claim request")
 @app_commands.choices(week=[
     app_commands.Choice(name="Week 1", value="Week 1"),
     app_commands.Choice(name="Week 2", value="Week 2"),
