@@ -13,7 +13,7 @@ def grab_teamac(team):
         for i in range(5):
             string += ws.cell(c.row + i, 2).value
             string += " = "
-            string += ws.cell(c.row + i, 24).value
+            string += ws.cell(c.row + i, 29).value
             string += "\n"
     except:
         string = "Process Failed"
