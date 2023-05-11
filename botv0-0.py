@@ -149,7 +149,7 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
     app_commands.Choice(name="Santa Cruz Warriors", value="Santa Cruz Warriors"),
     app_commands.Choice(name="Grand Rapid Gold", value="Grand Rapid Gold"),
     app_commands.Choice(name="Stockton Kings", value="Stockton Kings"),
-    app_commands.Choice(name="The Hive", value="The Hive"),
+    app_commands.Choice(name="Greensboro Swarm", value="Greensboro Swarm"),
     app_commands.Choice(name="Raptors 905", value="Raptors 905"),
     ])
 async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str]):
@@ -184,7 +184,7 @@ async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str
     app_commands.Choice(name="Santa Cruz Warriors", value="Santa Cruz Warriors"),
     app_commands.Choice(name="Grand Rapid Gold", value="Grand Rapid Gold"),
     app_commands.Choice(name="Stockton Kings", value="Stockton Kings"),
-    app_commands.Choice(name="The Hive", value="The Hive"),
+    app_commands.Choice(name="Greensboro Swarm", value="Greensboro Swarm"),
     app_commands.Choice(name="Raptors 905", value="Raptors 905"),
     ])
 async def viewbal(interaction: discord.Interaction, team: app_commands.Choice[str]):
