@@ -2,32 +2,22 @@ from pickle import TRUE
 import discord, asyncio
 from discord import app_commands
 
-from ibltoken import get_token
-from ibltoken import get_guild
-from ibltoken import get_general
-from ibltoken import get_botcommands
+from ibltoken import get_token, get_guild, get_general, get_botcommands
 
 from heightroll import calc_height
 from jsroll import roll_js
-from viewstats import grab_stats
-from viewstats import cached_stats
-from viewbank import grab_teamac
-from viewbank import grab_teambal
-from viewbank import grab_bal
-from viewbank import grab_claims
-from submitform import submit_ac
-from submitform import submit_claim
-from ibldb import add_name
-from ibldb import get_name
-from viewmr import grab_mr
-from viewmr import find_row
+from viewstats import grab_stats, cached_stats
+from viewbank import grab_teamac, grab_teambal, grab_bal, grab_claims
+from submitform import submit_ac, submit_claim
+from ibldb import add_name, get_name
+from viewmr import grab_mr, find_row
 
 guild = get_guild()
 general = get_general()
 botcommands = get_botcommands()
 
 # for stats
-default_season = 11
+default_season = 12
 
 # for mr viewing
 info_start = 2
