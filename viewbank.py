@@ -64,21 +64,25 @@ def grab_claims(week, player):
 
     # loops through the claims list
     for i in c:
+
+        # grabs the concat
+        concat = (ws.cell(i.row, 11).value).split("?")
+
         # displays the information
-        string += "Time: __" + str(ws.cell(i.row, 1).value) + "__ "
-        string += "Cat: __" + str(ws.cell(i.row, 4).value) + "__ "
-        amount = str(ws.cell(i.row, 5).value)
+        string += "Time: __" + str(concat[0]) + "__ "
+        string += "Cat: __" + str(concat[3]) + "__ "
+        amount = str(concat[4])
         string += "Amount: __" + amount + "XP__ "
-        string += "Desc: __" + str(ws.cell(i.row, 6).value) + "__ "
+        string += "Desc: __" + str(concat[5]) + "__ "
         string += "\n"
 
         # displays the status
-        status = str(ws.cell(i.row, 7).value)
+        status = str(concat[6])
         if (status == "Yes"):
-            string += "🟢 " + amount + "XP **Approved** by " + str(ws.cell(i.row, 8).value)
+            string += "🟢 " + amount + "XP **Approved** by " + str(concat[7])
             amt_approved += int(amount)
         elif (status == "No"):
-            string += "🔴 " + amount + "XP **Denied** by " + str(ws.cell(i.row, 8).value) + " Reason: " + str(ws.cell(i.row, 9).value)
+            string += "🔴 " + amount + "XP **Denied** by " + str(concat[7]) + " Reason: " + str(concat[8])
             amt_denied += int(amount)
         else:
             string += "🟡 " + amount + "XP **Pending**"
