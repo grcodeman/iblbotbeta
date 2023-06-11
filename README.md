@@ -1,0 +1,5 @@
+# iblbotbeta
+
+Python Version 3.10
+
+Packages: discord.py==2.0.1 gspread==5.5.0 requests firebase_admin==5.2.0 pandas==1.4.3
