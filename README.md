@@ -18,3 +18,5 @@ def get_general():
 def get_botcommands():
     return 766037755008253973
 ```
+
+Get any extra api keys like sheets and firebase and place in main directory.
