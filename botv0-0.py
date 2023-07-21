@@ -135,6 +135,8 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
     app_commands.Choice(name="Thunder", value="Thunder"),
     app_commands.Choice(name="Pistons", value="Pistons"),
     app_commands.Choice(name="Warriors", value="Warriors"),
+    ],
+    teamcu=[
     app_commands.Choice(name="Iowa Wolves", value="Iowa Wolves"),
     app_commands.Choice(name="Sky Hawks", value="Sky Hawks"),
     app_commands.Choice(name="Cleveland Charge", value="Cleveland Charge"),
@@ -146,12 +148,19 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
     app_commands.Choice(name="OKC Blue", value="OKC Blue"),
     app_commands.Choice(name="Long Island Nets", value="Long Island Nets"),
     ])
-async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str]):
+async def teamac(interaction: discord.Interaction, team: app_commands.Choice[str]=None, teamcu: app_commands.Choice[str]=None):
     await interaction.response.defer()
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
-        await interaction.followup.send(grab_teamac(team.value))
+        if (team != None):
+            selected_team = team.value
+        elif (teamcu != None):
+            selected_team = teamcu.value
+        else:
+            await interaction.followup.send("Select a team")
+
+        await interaction.followup.send(grab_teamac(selected_team))
 
 # teambal command
 @tree.command(name="teambal", description="View a team's XP balance")
@@ -172,6 +181,8 @@ async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str
     app_commands.Choice(name="Thunder", value="Thunder"),
     app_commands.Choice(name="Pistons", value="Pistons"),
     app_commands.Choice(name="Warriors", value="Warriors"),
+    ],
+    teamcu=[
     app_commands.Choice(name="Iowa Wolves", value="Iowa Wolves"),
     app_commands.Choice(name="Sky Hawks", value="Sky Hawks"),
     app_commands.Choice(name="Cleveland Charge", value="Cleveland Charge"),
@@ -183,12 +194,19 @@ async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str
     app_commands.Choice(name="OKC Blue", value="OKC Blue"),
     app_commands.Choice(name="Long Island Nets", value="Long Island Nets"),
     ])
-async def viewbal(interaction: discord.Interaction, team: app_commands.Choice[str]):
+async def teambal(interaction: discord.Interaction, team: app_commands.Choice[str]=None, teamcu: app_commands.Choice[str]=None):
     await interaction.response.defer()
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
-        await interaction.followup.send(grab_teambal(team.value))
+        if (team != None):
+            selected_team = team.value
+        elif (teamcu != None):
+            selected_team = teamcu.value
+        else:
+            await interaction.followup.send("Select a team")
+
+        await interaction.followup.send(grab_teambal(selected_team))
 
 # bal command
 @tree.command(name="bal", description="View a player's XP balance")
