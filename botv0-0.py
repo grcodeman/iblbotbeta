@@ -153,6 +153,7 @@ async def teamac(interaction: discord.Interaction, team: app_commands.Choice[str
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
+        selected_team = ""
         if (team != None):
             selected_team = team.value
         elif (teamcu != None):
@@ -160,7 +161,8 @@ async def teamac(interaction: discord.Interaction, team: app_commands.Choice[str
         else:
             await interaction.followup.send("Select a team")
 
-        await interaction.followup.send(grab_teamac(selected_team))
+        if (selected_team != ""):
+            await interaction.followup.send(grab_teamac(selected_team))
 
 # teambal command
 @tree.command(name="teambal", description="View a team's XP balance")
@@ -199,6 +201,7 @@ async def teambal(interaction: discord.Interaction, team: app_commands.Choice[st
     if (interaction.channel_id == general):
         await interaction.followup.send("Go to <#" + str(botcommands) + ">")
     else:
+        selected_team = ""
         if (team != None):
             selected_team = team.value
         elif (teamcu != None):
@@ -206,7 +209,8 @@ async def teambal(interaction: discord.Interaction, team: app_commands.Choice[st
         else:
             await interaction.followup.send("Select a team")
 
-        await interaction.followup.send(grab_teambal(selected_team))
+        if (selected_team != ""):
+            await interaction.followup.send(grab_teamac(selected_team))
 
 # bal command
 @tree.command(name="bal", description="View a player's XP balance")
