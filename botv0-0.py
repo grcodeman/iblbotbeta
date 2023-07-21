@@ -133,7 +133,7 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
     app_commands.Choice(name="Sonics", value="Sonics"),
     app_commands.Choice(name="Suns", value="Suns"),
     app_commands.Choice(name="Thunder", value="Thunder"),
-    app_commands.Choice(name="Bucks", value="Bucks"),
+    app_commands.Choice(name="Pistons", value="Pistons"),
     app_commands.Choice(name="Warriors", value="Warriors"),
     app_commands.Choice(name="Iowa Wolves", value="Iowa Wolves"),
     app_commands.Choice(name="Sky Hawks", value="Sky Hawks"),
@@ -143,6 +143,8 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
     app_commands.Choice(name="Stockton Kings", value="Stockton Kings"),
     app_commands.Choice(name="Greensboro Swarm", value="Greensboro Swarm"),
     app_commands.Choice(name="Raptors 905", value="Raptors 905"),
+    app_commands.Choice(name="OKC Blue", value="OKC Blue"),
+    app_commands.Choice(name="Long Island Nets", value="Long Island Nets"),
     ])
 async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str]):
     await interaction.response.defer()
@@ -168,7 +170,7 @@ async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str
     app_commands.Choice(name="Sonics", value="Sonics"),
     app_commands.Choice(name="Suns", value="Suns"),
     app_commands.Choice(name="Thunder", value="Thunder"),
-    app_commands.Choice(name="Bucks", value="Bucks"),
+    app_commands.Choice(name="Pistons", value="Pistons"),
     app_commands.Choice(name="Warriors", value="Warriors"),
     app_commands.Choice(name="Iowa Wolves", value="Iowa Wolves"),
     app_commands.Choice(name="Sky Hawks", value="Sky Hawks"),
@@ -178,6 +180,8 @@ async def viewac(interaction: discord.Interaction, team: app_commands.Choice[str
     app_commands.Choice(name="Stockton Kings", value="Stockton Kings"),
     app_commands.Choice(name="Greensboro Swarm", value="Greensboro Swarm"),
     app_commands.Choice(name="Raptors 905", value="Raptors 905"),
+    app_commands.Choice(name="OKC Blue", value="OKC Blue"),
+    app_commands.Choice(name="Long Island Nets", value="Long Island Nets"),
     ])
 async def viewbal(interaction: discord.Interaction, team: app_commands.Choice[str]):
     await interaction.response.defer()
