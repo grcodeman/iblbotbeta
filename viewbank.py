@@ -14,7 +14,11 @@ def grab_teamac(team):
 
         # loops through team list
         for i in range(5):
-            string += ws.cell(c.row + i, 2).value
+            name = ws.cell(c.row + i, 2).value
+            if (name == None):
+                name = "empty"
+
+            string += name
             string += " = "
             string += ws.cell(c.row + i, 29).value
             string += "\n"
@@ -32,7 +36,11 @@ def grab_teambal(team):
 
         # loops through team list
         for i in range(5):
-            string += ws.cell(c.row + i, 2).value
+            name = ws.cell(c.row + i, 2).value
+            if (name == None):
+                name = "empty"
+
+            string += name
             string += " = "
             string += ws.cell(c.row + i, 4).value
             string += "XP\n"

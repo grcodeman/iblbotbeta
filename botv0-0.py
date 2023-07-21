@@ -120,7 +120,7 @@ async def stats(interaction: discord.Interaction, type: app_commands.Choice[str]
 @tree.command(name="teamac", description="View a team's AC status")
 @app_commands.choices(team=[
     app_commands.Choice(name="76ers", value="76ers"),
-    app_commands.Choice(name="Raptors", value="Raptors"),
+    app_commands.Choice(name="Cavs", value="Cavs"),
     app_commands.Choice(name="Nets", value="Nets"),
     app_commands.Choice(name="Rockets", value="Rockets"),
     app_commands.Choice(name="Grizzlies", value="Grizzlies"),
@@ -168,7 +168,7 @@ async def teamac(interaction: discord.Interaction, team: app_commands.Choice[str
 @tree.command(name="teambal", description="View a team's XP balance")
 @app_commands.choices(team=[
     app_commands.Choice(name="76ers", value="76ers"),
-    app_commands.Choice(name="Raptors", value="Raptors"),
+    app_commands.Choice(name="Cavs", value="Cavs"),
     app_commands.Choice(name="Nets", value="Nets"),
     app_commands.Choice(name="Rockets", value="Rockets"),
     app_commands.Choice(name="Grizzlies", value="Grizzlies"),
