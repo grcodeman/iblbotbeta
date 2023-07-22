@@ -210,7 +210,7 @@ async def teambal(interaction: discord.Interaction, team: app_commands.Choice[st
             await interaction.followup.send("Select a team")
 
         if (selected_team != ""):
-            await interaction.followup.send(grab_teamac(selected_team))
+            await interaction.followup.send(grab_teambal(selected_team))
 
 # bal command
 @tree.command(name="bal", description="View a player's XP balance")
