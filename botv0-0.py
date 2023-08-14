@@ -384,4 +384,10 @@ async def viewmr(interaction: discord.Interaction, manual: str=None, player: str
     else:
         await interaction.followup.send("Use `/link` or enter in a name to use")
 
+# country command
+
+
+# create command
+
+
 client.run(get_token())
