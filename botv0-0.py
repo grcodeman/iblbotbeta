@@ -11,6 +11,7 @@ from viewbank import grab_teamac, grab_teambal, grab_bal, grab_claims
 from submitform import submit_ac, submit_claim
 from ibldb import add_name, get_name
 from viewmr import grab_mr, find_row
+from countryroll import roll_country
 
 guild = get_guild()
 general = get_general()
@@ -385,7 +386,19 @@ async def viewmr(interaction: discord.Interaction, manual: str=None, player: str
         await interaction.followup.send("Use `/link` or enter in a name to use")
 
 # country command
-
+@tree.command(name="country", description="Roll a country")
+@app_commands.choices(region=[
+    app_commands.Choice(name="America", value="america"),
+    app_commands.Choice(name="Europe", value="europe"),
+    app_commands.Choice(name="Africa", value="africa"),
+    app_commands.Choice(name="Asia", value="asia"),
+    app_commands.Choice(name="Oceania", value="oceania"),
+    ])
+async def roll(interaction: discord.Interaction, region: app_commands.Choice[str]):
+    await interaction.response.defer()
+    await asyncio.sleep(1)
+    rolled = roll_country(region.value)
+    await interaction.followup.send("`" + (interaction.user.name + "#" + interaction.user.discriminator) + "` rolled **" + rolled + "**")
 
 # create command
 
