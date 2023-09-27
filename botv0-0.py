@@ -394,7 +394,7 @@ async def viewmr(interaction: discord.Interaction, manual: str=None, player: str
     app_commands.Choice(name="Asia", value="asia"),
     app_commands.Choice(name="Oceania", value="oceania"),
     ])
-async def roll(interaction: discord.Interaction, region: app_commands.Choice[str]):
+async def country(interaction: discord.Interaction, region: app_commands.Choice[str]):
     await interaction.response.defer()
     await asyncio.sleep(1)
     rolled = roll_country(region.value)
