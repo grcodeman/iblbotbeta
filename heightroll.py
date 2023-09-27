@@ -9,9 +9,9 @@ POS_ODDS = [1,1,1,1,1]
 ARCH = ['tiny','athletic','skilled','giant']
 ARCH_ODDS = [1,1,1,1]
 
-BASE_TINY = [0,1,2,3]
-BASE_REG = [3,4,5,6]
-BASE_GIANT = [7,8,9,10]
+BASE_TINY = [1,2,3]
+BASE_REG = [4,5,6]
+BASE_GIANT = [7,8,9]
 
 PG_INC = 0
 SG_INC = 2
@@ -19,10 +19,9 @@ SF_INC = 4
 PF_INC = 6
 C_INC = 8
 
-TINY_ODDS = [45,30,20,5]
-REG_ODDS = [10,35,40,15]
-GIANT_ODDS = [40,40,15,5]
-GIANTC_ODDS = [45,40,15]
+TINY_ODDS = [5,45,50]
+REG_ODDS = [25,50,25]
+GIANT_ODDS = [50,45,5]
 
 def calc_height(pos, arch):
     height = -1
@@ -43,10 +42,7 @@ def calc_height(pos, arch):
     elif (arch == "skilled" or arch == "athletic"):
         height = random.choices(BASE_REG, weights=REG_ODDS, k=1)
     elif (arch == "giant"):
-        if (pos == "c"):
-            height = random.choices([BASE_GIANT[0],BASE_GIANT[1],BASE_GIANT[2]], weights=GIANTC_ODDS, k=1)
-        else:
-            height = random.choices(BASE_GIANT, weights=GIANT_ODDS, k=1)
+        height = random.choices(BASE_GIANT, weights=GIANT_ODDS, k=1)
 
     # add increase based on positional boost
     if (pos == "pg"):
